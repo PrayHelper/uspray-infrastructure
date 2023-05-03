@@ -3,7 +3,7 @@ http:
     proxy-dashboard:
       loadBalancer:
         servers:
-          - url: "http://:8080"
+          - url: "http://uspray.kr:8080"
         passHostHeader: true
     docker-dashboard:
       loadBalancer:
@@ -30,6 +30,10 @@ http:
         servers:
           - url: "http://uspray.kr:4004"
         passHostHeader: true
+    dummy-service:
+      loadBalancer:
+        servers:
+          - url: "http://uspray.kr"
 
   routers:
     proxy-dashboard-router:
@@ -74,3 +78,18 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
+    github-router:
+      rule: "Host(`github.uspray.kr`)"
+      middlewares: github
+      service: dummy-service
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+    
+  middlewares:
+    github:
+      RedirectRegex:
+        regex: "^https:\\/\\/github\\.uspray\\.kr(?:\\/.*)?$"
+        replacement: "https://github.com/PrayHelper"
+        permanent: true

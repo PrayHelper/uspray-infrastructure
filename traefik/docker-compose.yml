@@ -13,7 +13,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.yml:/traefik.yml
-      - ./server.yml:/server.yml
+      - ./dynamic.yml:/dynamic.yml
       - ${CERT_FILE_PATH}:/fullchain.pem
       - ${KEY_FILE_PATH}:/privkey.pem
       - ./acme.json:/acme.json
