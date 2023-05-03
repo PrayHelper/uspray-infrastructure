@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  proxy-server:
+    image: traefik:v2.10
+    command:
+      - --configFile=/traefik.yml
+      - --log.level=DEBUG
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.yml:/traefik.yml
+      - ./server.yml:/server.yml
+      - ${CERT_FILE_PATH}:/fullchain.pem
+      - ${KEY_FILE_PATH}:/privkey.pem
+      - ./acme.json:/acme.json

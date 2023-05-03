@@ -1,0 +1,76 @@
+http:
+  services:
+    proxy-dashboard:
+      loadBalancer:
+        servers:
+          - url: "http://:8080"
+        passHostHeader: true
+    docker-dashboard:
+      loadBalancer:
+        servers:
+          - url: "http://uspray.kr:9000"
+        passHostHeader: true
+    frontend-dev-server:
+      loadBalancer:
+        servers:
+          - url: "http://uspray.kr:4001"
+        passHostHeader: true
+    backend-dev-server:
+      loadBalancer:
+        servers:
+          - url: "http://uspray.kr:4002"
+        passHostHeader: true
+    frontend-server:
+      loadBalancer:
+        servers:
+          - url: "http://uspray.kr:4003"
+        passHostHeader: true
+    backend-server:
+      loadBalancer:
+        servers:
+          - url: "http://uspray.kr:4004"
+        passHostHeader: true
+
+  routers:
+    proxy-dashboard-router:
+      rule: "Host(`proxy.uspray.kr`)"
+      service: proxy-dashboard
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+    docker-dashboard-router:
+      rule: "Host(`docker.uspray.kr`)"
+      service: docker-dashboard
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+    frontend-dev-server-router:
+      rule: "Host(`www.dev.uspray.kr`)"
+      service: frontend-dev-server
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+    backend-dev-server-router:
+      rule: "Host(`api.dev.uspray.kr`)"
+      service: backend-dev-server
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+    frontend-server-router:
+      rule: "Host(`www.uspray.kr`)"
+      service: frontend-server
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+    backend-server-router:
+      rule: "Host(`api.uspray.kr`)"
+      service: backend-server
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
