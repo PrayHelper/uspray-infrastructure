@@ -3,32 +3,32 @@ http:
     proxy-dashboard:
       loadBalancer:
         servers:
-          - url: "http://uspray.kr:8080"
+          - url: "http://localhost:8080"
         passHostHeader: true
     docker-dashboard:
       loadBalancer:
         servers:
-          - url: "http://uspray.kr:9000"
+          - url: "http://localhost:9000"
         passHostHeader: true
     frontend-dev-server:
       loadBalancer:
         servers:
-          - url: "http://uspray.kr:4001"
+          - url: "http://localhost:4001"
         passHostHeader: true
     backend-dev-server:
       loadBalancer:
         servers:
-          - url: "http://uspray.kr:4002"
+          - url: "http://localhost:4002"
         passHostHeader: true
     frontend-server:
       loadBalancer:
         servers:
-          - url: "http://uspray.kr:4003"
+          - url: "http://localhost:4003"
         passHostHeader: true
     backend-server:
       loadBalancer:
         servers:
-          - url: "http://uspray.kr:4004"
+          - url: "http://localhost:4004"
         passHostHeader: true
     dummy-service:
       loadBalancer:

@@ -3,6 +3,7 @@ version: '3'
 services:
   proxy-server:
     image: traefik:v2.10
+    network_mode: host
     command:
       - --configFile=/traefik.yml
       - --log.level=DEBUG
