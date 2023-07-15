@@ -30,6 +30,17 @@ http:
         servers:
           - url: "http://localhost:4004"
         passHostHeader: true
+    frontend-integration-server:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:4005"
+        passHostHeader: true
+    backend-integration-server:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:4006"
+        passHostHeader: true
+
     dummy-service:
       loadBalancer:
         servers:
@@ -74,6 +85,20 @@ http:
     backend-server-router:
       rule: "Host(`api.uspray.kr`)"
       service: backend-server
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+    frontend-integration-server-router:
+      rule: "Host(`www.intg.uspray.kr`)"
+      service: frontend-integration-server
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+    backend-integration-server-router:
+      rule: "Host(`api.intg.uspray.kr`)"
+      service: backend-integration-server
       entryPoints:
         - websecure
       tls:
