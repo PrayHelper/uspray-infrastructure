@@ -40,7 +40,11 @@ http:
         servers:
           - url: "http://localhost:4006"
         passHostHeader: true
-
+    file-server:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8000"
+        passHostHeader: true
     dummy-service:
       loadBalancer:
         servers:
@@ -103,6 +107,14 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
+    file-server-router:
+      rule: "PathPrefix(`/.well-known`)"
+      service: file-server
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+      priority: 1000
     github-router:
       rule: "Host(`github.uspray.kr`)"
       middlewares: github
